@@ -33,6 +33,7 @@ final class AccueilController extends AbstractController
     }
      #[Route('/accueil/testModele')]
     public function testModele(EntityManagerInterface $entityManager)
+    
     {
         $repo=$entityManager->getRepository(Attraction::class);
         $arrayAttractions=$repo->findAll();
