@@ -1,0 +1,9 @@
+@echo off
+echo Ce script va supprimer la base de données et la recréer.
+symfony console doctrine:database:drop --force
+symfony console doctrine:database:create
+
+del migrations\Ve*
+symfony console make:migration --no-interaction
+symfony console doctrine:migrations:migrate --no-interaction
+symfony console make:fixtures:load --no-interaction
