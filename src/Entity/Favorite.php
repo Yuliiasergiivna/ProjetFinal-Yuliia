@@ -17,6 +17,10 @@ class Favorite
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $date = null;
 
+    #[ORM\ManyToOne(inversedBy: 'favorites')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Attraction $attraction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +34,18 @@ class Favorite
     public function setDate(\DateTime $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getAttraction(): ?Attraction
+    {
+        return $this->attraction;
+    }
+
+    public function setAttraction(?Attraction $attraction): static
+    {
+        $this->attraction = $attraction;
 
         return $this;
     }

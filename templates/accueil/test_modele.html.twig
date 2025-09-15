@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+voici la liste:
+{#{{dump(attractions)}}#}
+<ul>
+{% for attraction in attractions %}
+    <li>{{attraction.nom}}</li>
+    <li>{{attraction.categories}}</li>
+
+{% endfor %}
+</ul>
+{% endblock %}

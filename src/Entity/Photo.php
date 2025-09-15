@@ -23,6 +23,10 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[ORM\ManyToOne(inversedBy: 'photos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Attraction $attraction = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Photo
     public function setUrl(string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getAttraction(): ?Attraction
+    {
+        return $this->attraction;
+    }
+
+    public function setAttraction(?Attraction $attraction): static
+    {
+        $this->attraction = $attraction;
 
         return $this;
     }

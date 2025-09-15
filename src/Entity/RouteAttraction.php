@@ -19,6 +19,14 @@ class RouteAttraction
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'routeAttractions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Attraction $attraction = null;
+
+    #[ORM\ManyToOne(inversedBy: 'routeAttraction')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Route $route = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +52,30 @@ class RouteAttraction
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAttraction(): ?Attraction
+    {
+        return $this->attraction;
+    }
+
+    public function setAttraction(?Attraction $attraction): static
+    {
+        $this->attraction = $attraction;
+
+        return $this;
+    }
+
+    public function getRoute(): ?Route
+    {
+        return $this->route;
+    }
+
+    public function setRoute(?Route $route): static
+    {
+        $this->route = $route;
 
         return $this;
     }
