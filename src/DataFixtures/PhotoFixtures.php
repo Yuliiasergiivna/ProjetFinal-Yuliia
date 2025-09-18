@@ -2,11 +2,13 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Attraction;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Photo;
 use Faker\Factory;
 use DateTime;
+
 
 class PhotoFixtures extends Fixture
 {
@@ -19,6 +21,8 @@ class PhotoFixtures extends Fixture
             $photo->setDateUpload(new DateTime());
             $photo->setUrl($faker->imageUrl(640, 480));
             $manager->persist($photo);
+            $attraction=$this->getReference("attraction".rand(1,5), Attraction::class);
+            $photo->setAttraction($attraction);
         }
 
         $manager->flush();

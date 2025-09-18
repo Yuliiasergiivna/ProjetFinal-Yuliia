@@ -16,7 +16,10 @@ class FavoriteFixtures extends Fixture
         $faker = Factory::create ("fr_BE");
         for($i = 1; $i <= 5; $i++){
         $favorite = new Favorite();
-       
+        $attraction=$this->getReference("attraction". rand(1,5), Attraction::class);
+        $favorite->setAttraction($attraction); 
+
+        
         
         $manager->persist($favorite);
         $manager->flush();

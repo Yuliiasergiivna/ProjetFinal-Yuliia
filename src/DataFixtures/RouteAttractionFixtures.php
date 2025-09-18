@@ -10,6 +10,7 @@ use Faker\Factory;
 use App\Entity\Route;
 use App\Entity\Attraction;
 
+
 class RouteAttractionFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
@@ -33,6 +34,7 @@ class RouteAttractionFixtures extends Fixture
             // Set some fake data for other fields
             $routeAttraction->setName('RouteAttraction ' . $i);
             $routeAttraction->setDescription($faker->sentence());
+            $attraction =$this->getReference("attraction" . rand(1,5,),Attraction::class);
             
             $manager->persist($routeAttraction);
         }
