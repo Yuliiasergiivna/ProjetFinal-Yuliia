@@ -12,9 +12,11 @@ final class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'app_accueil')]
     public function index(): Response
-
-
     {
+        dd($this->getUser());
+    
+
+    
 
         $adresse=['rue'=>'rue de la paix',
         'numero'=>12,
