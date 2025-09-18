@@ -20,11 +20,11 @@ class RouteAttraction
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'routeAttractions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Attraction $attraction = null;
 
     #[ORM\ManyToOne(inversedBy: 'routeAttraction')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Route $route = null;
 
     public function getId(): ?int

@@ -24,7 +24,7 @@ class Photo
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'photos')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Attraction $attraction = null;
 
     public function getId(): ?int

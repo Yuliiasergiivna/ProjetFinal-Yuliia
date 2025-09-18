@@ -16,7 +16,7 @@ class AttractionFixtures extends Fixture
         for($i = 1; $i <= 5; $i++){
             $attraction = new Attraction();
             $attraction->setName("Île de Khortytsa".$i);
-            $attraction->setDescription(""(100).$i);
+            $attraction->setDescription("Description de l'attraction".$i);
             $attraction->setRoute($faker->randomFloat(2, 0, 100));
             $manager->persist($attraction);
         }

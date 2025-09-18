@@ -17,6 +17,7 @@ class PhotoFixtures extends Fixture
             $photo = new Photo();
             $photo->setName($faker->word);
             $photo->setDateUpload(new DateTime());
+            $photo->setUrl($faker->imageUrl(640, 480));
             $manager->persist($photo);
         }
 

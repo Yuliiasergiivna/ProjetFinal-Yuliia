@@ -14,11 +14,11 @@ class Favorite
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date = null;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Attraction $attraction = null;
 
     public function getId(): ?int
