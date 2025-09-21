@@ -14,9 +14,9 @@ final class AccueilController extends AbstractController
     public function index(): Response
     {
         dd($this->getUser());
-    
 
-    
+
+
 
         $adresse=['rue'=>'rue de la paix',
         'numero'=>12,
@@ -35,7 +35,7 @@ final class AccueilController extends AbstractController
     }
      #[Route('/accueil/testModele')]
     public function testModele(EntityManagerInterface $entityManager)
-    
+
     {
         $repo=$entityManager->getRepository(Attraction::class);
         $arrayAttractions=$repo->findAll();
@@ -43,7 +43,7 @@ final class AccueilController extends AbstractController
         $arrayAttractions[0]->getCategories();
 
         // $arrayAttractions=$entityManager->getRepository(Attraction::class)->findAll();
-        
+
         dd($arrayAttractions);
         $vars=[
             'attractions'=>$arrayAttractions
