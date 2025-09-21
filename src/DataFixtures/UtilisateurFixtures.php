@@ -23,6 +23,7 @@ class UtilisateurFixtures extends Fixture
            $utilisateur = new Utilisateur();
            $utilisateur->setEmail('user' . $i . '@gmail.com');
            $utilisateur->setNom('user' . $i);
+           $this->addReference('utilisateur' . $i, $utilisateur);
 
            $utilisateur->setDateNaissance($faker->dateTimeBetween('-80 years', '-18 years'));
            $utilisateur->setRoles(['ROLE_USER']);
@@ -33,6 +34,7 @@ class UtilisateurFixtures extends Fixture
             $utilisateur = new Utilisateur();
             $utilisateur->setEmail('admin' . $i . '@gmail.com');
             $utilisateur->setNom('admin' . $i);
+            $this->addReference('admin' . $i, $utilisateur);
 
             $utilisateur->setDateNaissance($faker->dateTimeBetween('-80 years', '-18 years'));
             $utilisateur->setRoles(['ROLE_ADMIN']);

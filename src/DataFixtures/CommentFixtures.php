@@ -6,6 +6,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Comment;
 use Faker\Factory;
+use App\Entity\Utilisateur;
 
 class CommentFixtures extends Fixture
 {
@@ -16,8 +17,9 @@ class CommentFixtures extends Fixture
         $comment = new Comment();
         $comment->setText($faker->text(100));
         $comment->setDate(new \DateTime());
+        $comment->setUtilisateur($this->getReference('utilisateur' . rand(1,5), Utilisateur::class)); 
 
-        
+
         $manager->persist($comment);
         $manager->flush();
     }
