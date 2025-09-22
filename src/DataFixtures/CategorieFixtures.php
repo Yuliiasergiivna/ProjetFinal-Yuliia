@@ -16,7 +16,7 @@ class CategorieFixtures extends Fixture
             $category = new Category();
             $category->setName($faker->word());
             $category->setDescription($faker->text(100));
-            $this->addReference("category".$i, $category);
+            $this->addReference("category" .$i, $category);
 
             $manager->persist($category);
 

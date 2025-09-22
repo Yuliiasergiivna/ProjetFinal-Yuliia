@@ -7,15 +7,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Attraction;
+use Symfony\Component\HttpFoundation\Request;
+
 
 final class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'app_accueil')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        dd($this->getUser());
-
-
+        // dd($this->getUser());
+        //obtenir tous les elements du cote 1:
+        // $repo=$entityManager->getRepository(Attraction::class);
+        // $attractions=$repo->findAll();
+        // $vars=['attractions'=>$attractions];
 
 
         $adresse=['rue'=>'rue de la paix',
@@ -50,4 +54,12 @@ final class AccueilController extends AbstractController
         ];
         return $this->render('accueil/test_modele.html.twig',$vars );
     }
+    // #[Route('/accueil/testModele/{id_attraction}', name: 'app_test_modele')] 
+    // public function testModeleAttraction(Request $request, EntityManagerInterface $entityManager): Response
+    // {
+    // $id_attraction=$request->get('id_attraction');
+    // $attraction=$entityManager->getRepository(Attraction::class)->find($id_attraction);
+    // $vars=['attraction'=>$attraction];
+    // return $this->render('accueil/test_modele_attraction.html.twig',$vars );
+    // }
 }

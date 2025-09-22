@@ -9,9 +9,10 @@ use App\Entity\RouteAttraction;
 use Faker\Factory;
 use App\Entity\Route;
 use App\Entity\Attraction;
+use App\DataFixtures\AttractionFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-
-class RouteAttractionFixtures extends Fixture
+class  RouteAttractionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -39,5 +40,11 @@ class RouteAttractionFixtures extends Fixture
             $manager->persist($routeAttraction);
         }
         $manager->flush();
+    }
+    public function getDependencies(): array
+    {
+        return [
+            AttractionFixtures::class,
+        ];
     }
 }
