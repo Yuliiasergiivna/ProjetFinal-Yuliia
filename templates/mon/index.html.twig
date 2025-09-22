@@ -5,16 +5,30 @@
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .example-wrapper code { background:rgb(239, 123, 123); padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-
+    <select id="select">
+        <option value="{{ path('app_mon') }}">1</option>
+        <option value="{{ path('app_mon', {'id_attraction': 1}) }}">2</option>
+        <option value="{{ path('app_mon', {'category': 2}) }}">3</option>
+    </select>
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code>C:/xampp/htdocs/ProjetFinal-Yuliia/src/Controller/MonController.php</code></li>
         <li>Your template at <code>C:/xampp/htdocs/ProjetFinal-Yuliia/templates/mon/index.html.twig</code></li>
     </ul>
 </div>
+
+<script>
+    const select = document.querySelector('select');
+    select.addEventListener('change', function() {
+        const id_attraction = event.target.value;
+        const category = event.target.value;
+        window.location.href = "/login";
+        
+    });
+</script>
 {% endblock %}
