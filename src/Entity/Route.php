@@ -27,6 +27,9 @@ class Route
     #[ORM\OneToMany(targetEntity: RouteAttraction::class, mappedBy: 'route', orphanRemoval: true)]
     private Collection $routeAttraction;
 
+    #[ORM\ManyToOne(inversedBy: 'routes')]
+    private ?Utilisateur $utilisateur = null;
+
     public function __construct()
     {
         $this->routeAttraction = new ArrayCollection();
@@ -87,6 +90,18 @@ class Route
                 $routeAttraction->setRoute(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

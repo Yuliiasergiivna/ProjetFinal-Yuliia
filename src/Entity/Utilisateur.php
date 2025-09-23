@@ -48,9 +48,30 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'utilisateur')]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, Photo>
+     */
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'utilisateur')]
+    private Collection $photos;
+
+    /**
+     * @var Collection<int, Favorite>
+     */
+    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'utilisateur')]
+    private Collection $favorites;
+
+    /**
+     * @var Collection<int, Route>
+     */
+    #[ORM\OneToMany(targetEntity: Route::class, mappedBy: 'utilisateur')]
+    private Collection $routes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+        $this->routes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,6 +203,96 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUtilisateur() === $this) {
                 $comment->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): static
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+            $photo->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): static
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getUtilisateur() === $this) {
+                $photo->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Favorite>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorite $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorite $favorite): static
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            // set the owning side to null (unless already changed)
+            if ($favorite->getUtilisateur() === $this) {
+                $favorite->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Route>
+     */
+    public function getRoutes(): Collection
+    {
+        return $this->routes;
+    }
+
+    public function addRoute(Route $route): static
+    {
+        if (!$this->routes->contains($route)) {
+            $this->routes->add($route);
+            $route->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoute(Route $route): static
+    {
+        if ($this->routes->removeElement($route)) {
+            // set the owning side to null (unless already changed)
+            if ($route->getUtilisateur() === $this) {
+                $route->setUtilisateur(null);
             }
         }
 

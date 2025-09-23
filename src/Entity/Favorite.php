@@ -21,6 +21,9 @@ class Favorite
     #[ORM\JoinColumn(nullable: true)]
     private ?Attraction $attraction = null;
 
+    #[ORM\ManyToOne(inversedBy: 'favorites')]
+    private ?Utilisateur $utilisateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +49,18 @@ class Favorite
     public function setAttraction(?Attraction $attraction): static
     {
         $this->attraction = $attraction;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
