@@ -46,11 +46,18 @@ class Attraction
     #[ORM\OneToMany(targetEntity: RouteAttraction::class, mappedBy: 'attraction', orphanRemoval: true)]
     private Collection $routeAttractions;
 
+    /**
+     * @var Collection<int, Utilisateur>
+     */
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class, mappedBy: 'attractionLikes')]
+    private Collection $utilisateurs;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->routeAttractions = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +198,33 @@ class Attraction
             if ($routeAttraction->getAttraction() === $this) {
                 $routeAttraction->setAttraction(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Utilisateur>
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): static
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->add($utilisateur);
+            $utilisateur->addAttractionLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): static
+    {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
+            $utilisateur->removeAttractionLike($this);
         }
 
         return $this;

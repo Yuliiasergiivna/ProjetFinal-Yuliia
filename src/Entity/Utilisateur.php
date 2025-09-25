@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -66,12 +67,26 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Route::class, mappedBy: 'utilisateur')]
     private Collection $routes;
 
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\ManyToMany(targetEntity: Comment::class, mappedBy: 'utilisateurs')]
+    private Collection $likes;
+
+    /**
+     * @var Collection<int, Attraction>
+     */
+    #[ORM\ManyToMany(targetEntity: Attraction::class, inversedBy: 'utilisateurs', cascade: ['persist'])]
+    private Collection $attractionLikes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->routes = new ArrayCollection();
+        $this->likes = new ArrayCollection();
+        $this->attractionLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +310,54 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $route->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Comment $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Comment $like): static
+    {
+        $this->likes->removeElement($like);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Attraction>
+     */
+    public function getAttractionLikes(): Collection
+    {
+        return $this->attractionLikes;
+    }
+
+    public function addAttractionLike(Attraction $attractionLike): static
+    {
+        if (!$this->attractionLikes->contains($attractionLike)) {
+            $this->attractionLikes->add($attractionLike);
+        }
+
+        return $this;
+    }
+
+    public function removeAttractionLike(Attraction $attractionLike): static
+    {
+        $this->attractionLikes->removeElement($attractionLike);
 
         return $this;
     }
