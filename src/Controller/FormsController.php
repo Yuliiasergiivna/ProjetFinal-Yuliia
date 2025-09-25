@@ -12,21 +12,21 @@ use Doctrine\ORM\EntityManagerInterface;
 
 final class FormsController extends AbstractController
 {
-    #[Route('/afficher_form', name: 'app_forms_controler')]
-    public function afficherForm(): Response
-    {
+    // #[Route('/afficher_form', name: 'app_forms_controler')]
+    // public function afficherForm(): Response
+    // {
         //cree un objet categorie
         
-        $formCategorie = $this->createForm(CategorieType::class);
+        // $formCategorie = $this->createForm(CategorieType::class);
         // dd($formCategorie);
-        $vars = [
-            'formCategorie' => $formCategorie->createView()
-        ];
+        // $vars = [
+        //     'formCategorie' => $formCategorie->createView()
+        // ];
 
         //faire rendu de la vue
         
-        return $this->render('forms_controler/afficher_form.html.twig', $vars);
-    }
+    //     return $this->render('forms_controler/afficher_form.html.twig', $vars);
+    // }
 
     #[Route('/forms_controler/insert_categorie', name: 'app_forms_controler_insert_categorie')]
     public function insertCategorie(Request $request , EntityManagerInterface $entityManager): Response

@@ -12,7 +12,8 @@ final class AttractionController extends AbstractController
     public function index(): Response
     {
         return $this->render('attraction/index.html.twig', [
-            'controller_name' => 'AttractionController',
+            // $formAttraction = $this->createForm(AttractionType::class);
+
         ]);
     }
 }
