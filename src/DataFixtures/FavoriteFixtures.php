@@ -18,7 +18,7 @@ class FavoriteFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create("fr_BE");
         for ($i = 1; $i <= 5; $i++) {
             $favorite = new Favorite();
-            $attraction = $this->getReference("attraction" . rand(1, 5), Attraction::class);
+            $attraction = $this->getReference("attraction" . rand(0, 7), Attraction::class);
             $favorite->setAttraction($attraction);
 
 
@@ -31,6 +31,7 @@ class FavoriteFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             AttractionFixtures::class,
+            UkraineAttractionFixtures::class,
         ];
     }
 }

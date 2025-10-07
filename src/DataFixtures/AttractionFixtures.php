@@ -15,19 +15,19 @@ class AttractionFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
 
     {
-        $faker = Factory::create("fr_BE");
-        for($i = 1; $i <= 5; $i++){
-            $attraction = new Attraction();
-            $attraction->setName("Île de Khortytsa".$i);
-            $attraction->setDescription("Description de l'attraction".$i);
-            $attraction->setRoute($faker->randomFloat(2, 0, 100));
-            $manager->persist($attraction);
-            $categorie=$this->getReference("category". rand(1,5), Category::class);
-            $attraction->setCategory($categorie);
-            $this->addReference("attraction".$i, $attraction);
+        // $faker = Factory::create("fr_BE");
+        // for($i = 1; $i <= 5; $i++){
+        //     $attraction = new Attraction();
+        //     $attraction->setName("Île de Khortytsa".$i);
+        //     $attraction->setDescription("Description de l'attraction".$i);
+        //     $attraction->setRoute($faker->randomFloat(2, 0, 100));
+        //     $manager->persist($attraction);
+        //     $categorie=$this->getReference("category". rand(1,5), Category::class);
+        //     $attraction->setCategory($categorie);
+        //     $this->addReference("attraction".$i, $attraction);
             
-        }
-        $manager->flush();
+        // }
+        // $manager->flush();
     }
 
     public function getDependencies(): array
