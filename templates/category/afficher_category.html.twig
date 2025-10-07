@@ -3,11 +3,8 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-<style>
-
-</style>
-
-<div >
-
-</div>
+{{ form_start (formCategorie) }}
+{{ form_widget (formCategorie) }}
+<input type="submit" value="Insert">
+{{ form_end (formCategorie)}}
 {% endblock %}
