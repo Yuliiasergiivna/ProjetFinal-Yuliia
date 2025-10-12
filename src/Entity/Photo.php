@@ -23,6 +23,9 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
     #[ORM\ManyToOne(inversedBy: 'photos')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Attraction $attraction = null;
@@ -91,6 +94,18 @@ class Photo
     public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

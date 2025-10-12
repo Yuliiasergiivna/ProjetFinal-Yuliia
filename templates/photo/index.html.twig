@@ -3,23 +3,51 @@
 {% block title %}Téléchargement de photo{% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container mt-5">
     <h1 class="mb-4">Ajouter une photo</h1>
     
-    {{ form_start(formPhoto), {'attr':{'enctype':'multipart/form-data'}} }}
-        {{form_row(formPhoto.image)}}
-     <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
+    {# Affichage des messages flash #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+    {{ form_start(formPhoto, {'attr': {'enctype': 'multipart/form-data'}}) }}
+        {{ form_row(formPhoto.name) }}
+        {{ form_row(formPhoto.image) }}
+        {{ form_row(formPhoto.dateUpload) }}
+        {{ form_row(formPhoto.attraction) }}
+        {{ form_row(formPhoto.utilisateur) }}
+        
+        <button type="submit" class="btn btn-primary mt-3">
+            <i class="bi bi-upload"></i> Télécharger la photo
+        </button>
     {{ form_end(formPhoto) }}
-    <hr>
+    
+    <hr class="my-5">
 
     <h2>Photos existantes</h2>
     <div class="row">
         {% for photo in photos %}
             <div class="col-md-3 mb-3">
-                <img src="{{ asset('uploads/photos/' ~ photo.image) }}" class="img-fluid">
+                <div class="card">
+                    <img src="{{ photo.url }}" class="card-img-top" alt="{{ photo.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.name }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">{{ photo.dateUpload|date('d/m/Y') }}</small>
+                        </p>
+                    </div>
+                </div>
             </div>
-        {%else  %}
-            <p>Aucune photo</p>
+        {% else %}
+            <div class="col-12">
+                <p class="text-muted">Aucune photo téléchargée pour le moment.</p>
+            </div>
         {% endfor %}
     </div>
 </div>
