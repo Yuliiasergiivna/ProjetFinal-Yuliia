@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Atracciones - Ucrania{% endblock %}
+{% block title %}Attractions d'Ukraine{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -12,7 +12,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-4">Attractions</h1>
+            <h1 class="mb-4">Attractions d'Ukraine</h1>
             <div class="card">
                 <div class="card-body">
                     <div id="map" data-api-endpoint="{{ path('api_attractions') }}"></div>
@@ -27,14 +27,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="attractionModalLabel">Información de la Atracción</h5>
+                <h5 class="modal-title" id="attractionModalLabel">Information sur l'attraction</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="attractionModalBody">
                 <!-- Contenido dinámico -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>

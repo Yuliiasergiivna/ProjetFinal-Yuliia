@@ -40,4 +40,17 @@ class AttractionRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    /**
+     * @return Attraction[]
+     */
+    public function findAllWithPhotos(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.photos', 'p')
+            ->addSelect('p')
+            ->orderBy('a.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

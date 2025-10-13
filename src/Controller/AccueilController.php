@@ -26,18 +26,6 @@ final class AccueilController extends AbstractController
         // $vars=['attractions'=>$attractions];
 
 
-        // $adresse=['rue'=>'rue de la paix',
-        // 'numero'=>12,
-        // 'codePostal'=>'75001', ];
-
-        // dd($adresse);
-        // $vars = ['nom' => 'Yuliia',
-        // 'hobby' => 'natation',
-        // 'dateNaissance' => new \DateTime('2005-09-15'),
-        // 'adresse'=>$adresse];
-
-        // dd($vars);
-
 
         return $this->render('accueil/index.html.twig');
     }

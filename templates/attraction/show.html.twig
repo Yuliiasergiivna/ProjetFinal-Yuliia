@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ attraction.name }} - Attraction en Ukraine{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_attraction') }}">Attractions</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ attraction.name }}</li>
+                </ol>
+            </nav>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-img-top bg-light" style="height: 400px; background-image: url('https://source.unsplash.com/random/1200x800/?{{ attraction.name }}'); background-size: cover; background-position: center;">
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h1 class="h2 mb-0">{{ attraction.name }}</h1>
+                        {% if attraction.category %}
+                            <span class="badge bg-primary fs-6">{{ attraction.category.name }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-muted mb-4">
+                        <i class="fas fa-map-marker-alt me-1"></i> {{ attraction.name }}, Ukraine
+                    </p>
+                    
+                    <div class="mb-4">
+                        <h3 class="h5">Description</h3>
+                        <p class="lead">{{ attraction.description }}</p>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div id="map" style="height: 300px;" 
+                                 data-lat="{{ attraction.latitude }}" 
+                                 data-lng="{{ attraction.longitude }}"
+                                 data-title="{{ attraction.name }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ path('app_attraction') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Retour à la liste
+                        </a>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary">
+                                <i class="far fa-heart"></i> Ajouter aux favoris
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-camera me-1"></i> Ajouter une photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photos Section -->
+            <h3 class="h4 mb-4">Galerie photos</h3>
+            <div class="row g-3 mb-5">
+                {% for i in 1..3 %}
+                <div class="col-md-4">
+                    <div class="ratio ratio-4x3">
+                        <img src="https://source.unsplash.com/random/400x300/?{{ attraction.name }},{{ i }}" 
+                             class="img-fluid rounded" 
+                             alt="Photo de {{ attraction.name }}">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .breadcrumb {
+        background-color: #f8f9fa;
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    
+    .btn-group .btn {
+        border-radius: 0.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+            const lat = parseFloat(mapElement.dataset.lat);
+            const lng = parseFloat(mapElement.dataset.lng);
+            const title = mapElement.dataset.title;
+            
+            // Initialize and display the map
+            const map = L.map('map').setView([lat, lng], 15);
+            
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Add a marker
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(`<b>${title}</b><br>${lat}, ${lng}`)
+                .openPopup();
+        }
+    });
+</script>
+{% endblock %}

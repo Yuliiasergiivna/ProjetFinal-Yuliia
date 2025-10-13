@@ -36,4 +36,5 @@ class AttractionFixtures extends Fixture implements DependentFixtureInterface
             CategorieFixtures::class,
         ];
     }
+   
 }

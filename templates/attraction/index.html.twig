@@ -1,7 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AttractionController!{% endblock %}
+{% block title %}Attractions d'Ukraine{% endblock %}
 
 {% block body %}
+<div class="container py-5">
+    <h1 class="mb-4">Découvrez les Attractions d'Ukraine</h1>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for attraction in attractions %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if attraction.photos|length > 0 %}
+                        {% set photoPath = 'assets/photo/' ~ attraction.photos[0].url %}
+                        {% if file_exists('assets/photo/' ~ attraction.photos[0].url) %}
+                            <img src="{{ asset(photoPath) }}" 
+                                 class="card-img-top" 
+                                 alt="{{ attraction.name }}"
+                                 style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="fas fa-image fa-3x text-muted"></i>
+                                <small class="d-block">Image non trouvée: {{ attraction.photos[0].url }}</small>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                            <small class="d-block">Aucune photo disponible</small>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ attraction.name }}</h5>
+                        <p class="text-muted">
+                            <i class="fas fa-map-marker-alt"></i> {{ attraction.name }}
+                            {% if attraction.category %}
+                                <span class="badge bg-primary float-end">{{ attraction.category.name }}</span>
+                            {% endif %}
+                        </p>
+                        <p class="card-text">{{ attraction.description|slice(0, 100) }}...</p>
+                        <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}" class="btn btn-outline-primary">
+                            Voir les détails <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">Aucune attraction trouvée.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+</style>
 {% endblock %}

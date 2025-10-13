@@ -260,4 +260,17 @@ class Attraction
 
         return $this;
     }
+    // private ?string $city = null;
+
+    // public function getCity(): ?string
+    // {
+    // return $this->city;
+    // }
+
+    // public function setCity(?string $city): static
+    // {
+    // $this->city = $city;
+
+    // return $this;
+    // }
 }
