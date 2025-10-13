@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Attraction;
+use App\Repository\AttractionRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Attraction;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 final class AccueilController extends AbstractController
@@ -15,6 +17,8 @@ final class AccueilController extends AbstractController
     #[Route('/accueil', name: 'app_accueil')]
     public function index(EntityManagerInterface $entityManager): Response
     {
+
+        return $this->render('accueil/index.html.twig');
         // dd($this->getUser());
         //obtenir tous les elements du cote 1:
         // $repo=$entityManager->getRepository(Attraction::class);
@@ -62,4 +66,35 @@ final class AccueilController extends AbstractController
     // $vars=['attraction'=>$attraction];
     // return $this->render('accueil/test_modele_attraction.html.twig',$vars );
     // }
+
+
+    #[Route('/api/attractions', name: 'api_attractions', methods: ['GET'])]
+    public function getAttractions(AttractionRepository $repository): JsonResponse
+    {
+        $attractions = $repository->findAll();
+
+        $data = [];
+        foreach ($attractions as $attraction) {
+            // Get first photo for each attraction if available
+            $photos = $attraction->getPhotos();
+            $image = $photos->count() > 0 ? $photos->first()->getUrl() : null;
+
+            // Get category name if available
+            $category = $attraction->getCategory();
+            $categoryName = $category ? $category->getName() : null;
+
+            $data[] = [
+                'id' => $attraction->getId(),
+                'name' => $attraction->getName(),
+                'description' => $attraction->getDescription(),
+                'latitude' => (float) $attraction->getLatitude(),
+                'longitude' => (float) $attraction->getLongitude(),
+                'category' => $categoryName,
+                'route' => $attraction->getRoute(),
+                'image' => $image,
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
 }
