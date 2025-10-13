@@ -16,9 +16,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class PhotoController extends AbstractController
 {
-    /**
-     * @Route("/photo", name="app_photo")
-     */
+    
+     #[Route('/photo', name:'app_photo')]
+     
     public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');

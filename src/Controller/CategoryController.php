@@ -14,16 +14,20 @@ use Doctrine\ORM\EntityManagerInterface;
 final class CategoryController extends AbstractController
 {
     #[Route('/category', name: 'app_category')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        // Get the repository for Category entity
+        $categoryRepository = $entityManager->getRepository(Category::class);
+        
+        // Fetch 5 categories (you might want to add some ordering)
+        $categories = $categoryRepository->findBy([], ['id' => 'ASC'], 5);
         
         $formCategorie = $this->createForm(CategorieType::class);
-        $vars = [
-            'formCategorie' => $formCategorie->createView()
-        ];
         
-        // faire!!
-        return $this->render('category/index.html.twig', $vars);
+        return $this->render('category/index.html.twig', [
+            'formCategorie' => $formCategorie->createView(),
+            'categories' => $categories
+        ]);
     }
     
     #[Route('/category/insert_categorie', name: 'app_category_insert_categorie')]

@@ -11,15 +11,20 @@ class CategorieFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create("fr_BE");
-        for($i = 1; $i <= 5; $i++){
+        $categories = [
+            ['name' => 'Nature', 'description' => 'Photos de paysages naturels, forêts, montagnes, etc.'],
+            ['name' => 'Catedrale', 'description' => 'Photos de catedrales et batiments religieux'],
+            ['name' => 'Espace romantique', 'description' => 'Photos de espaces romantiques'],
+            ['name' => 'Châteaux', 'description' => 'Photos de châteaux'],
+            ['name' => 'Villes', 'description' => 'Photos de villes']
+        ];
+
+        foreach ($categories as $i => $catData) {
             $category = new Category();
-            $category->setName($faker->word());
-            $category->setDescription($faker->text(100));
-            $this->addReference("category" .$i, $category);
-
+            $category->setName($catData['name']);
+            $category->setDescription($catData['description']);
+            $this->addReference("category" . ($i + 1), $category);
             $manager->persist($category);
-
         }
 
         $manager->flush();

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20251007140913 extends AbstractMigration
+final class Version20251013081750 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,7 +25,7 @@ final class Version20251007140913 extends AbstractMigration
         $this->addSql('CREATE TABLE comment (id INT AUTO_INCREMENT NOT NULL, utilisateur_id INT DEFAULT NULL, text VARCHAR(255) NOT NULL, date DATE NOT NULL, INDEX IDX_9474526CFB88E14F (utilisateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_comment_likes (comment_id INT NOT NULL, utilisateur_id INT NOT NULL, INDEX IDX_EDE7BDCF8697D13 (comment_id), INDEX IDX_EDE7BDCFB88E14F (utilisateur_id), PRIMARY KEY(comment_id, utilisateur_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE favorite (id INT AUTO_INCREMENT NOT NULL, attraction_id INT DEFAULT NULL, utilisateur_id INT DEFAULT NULL, date DATE DEFAULT NULL, INDEX IDX_68C58ED93C216F9D (attraction_id), INDEX IDX_68C58ED9FB88E14F (utilisateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE photo (id INT AUTO_INCREMENT NOT NULL, attraction_id INT DEFAULT NULL, utilisateur_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, date_upload DATE NOT NULL, url VARCHAR(255) NOT NULL, INDEX IDX_14B784183C216F9D (attraction_id), INDEX IDX_14B78418FB88E14F (utilisateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE photo (id INT AUTO_INCREMENT NOT NULL, attraction_id INT DEFAULT NULL, utilisateur_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, date_upload DATE NOT NULL, url VARCHAR(255) NOT NULL, slug VARCHAR(255) DEFAULT NULL, INDEX IDX_14B784183C216F9D (attraction_id), INDEX IDX_14B78418FB88E14F (utilisateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE route (id INT AUTO_INCREMENT NOT NULL, utilisateur_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, INDEX IDX_2C42079FB88E14F (utilisateur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE route_attraction (id INT AUTO_INCREMENT NOT NULL, attraction_id INT DEFAULT NULL, route_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, INDEX IDX_DB742C5F3C216F9D (attraction_id), INDEX IDX_DB742C5F34ECB4E6 (route_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE utilisateur (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, nom VARCHAR(255) DEFAULT NULL, date_naissance DATE DEFAULT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
