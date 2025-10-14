@@ -11,42 +11,41 @@
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     {% if attraction.photos|length > 0 %}
-                        {% set photoPath = 'assets/photo/' ~ attraction.photos[0].url %}
-                        {% if file_exists('assets/photo/' ~ attraction.photos[0].url) %}
-                            <img src="{{ asset(photoPath) }}" 
-                                 class="card-img-top" 
-                                 alt="{{ attraction.name }}"
-                                 style="height: 200px; object-fit: cover;">
-                        {% else %}
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                                <i class="fas fa-image fa-3x text-muted"></i>
-                                <small class="d-block">Image non trouvée: {{ attraction.photos[0].url }}</small>
-                            </div>
-                        {% endif %}
+                        <img src="{{ attraction.photos[0].url }}" 
+                             class="card-img-top" 
+                             alt="{{ attraction.name }}"
+                             style="height: 200px; object-fit: cover;"
+                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'card-img-top bg-secondary d-flex align-items-center justify-content-center\' style=\'height: 200px;\'><i class=\'bi bi-image text-white\' style=\'font-size: 3rem;\'></i></div>';">
                     {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="fas fa-image fa-3x text-muted"></i>
-                            <small class="d-block">Aucune photo disponible</small>
+                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="bi bi-image text-white" style="font-size: 3rem;"></i>
                         </div>
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ attraction.name }}</h5>
-                        <p class="text-muted">
-                            <i class="fas fa-map-marker-alt"></i> {{ attraction.name }}
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-geo-alt-fill"></i> 
+                            {% if attraction.latitude and attraction.longitude %}
+                                {{ attraction.latitude|slice(0, 6) }}, {{ attraction.longitude|slice(0, 6) }}
+                            {% else %}
+                                Ukraine
+                            {% endif %}
                             {% if attraction.category %}
                                 <span class="badge bg-primary float-end">{{ attraction.category.name }}</span>
                             {% endif %}
                         </p>
-                        <p class="card-text">{{ attraction.description|slice(0, 100) }}...</p>
-                        <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}" class="btn btn-outline-primary">
-                            Voir les détails <i class="fas fa-arrow-right ms-1"></i>
+                        <p class="card-text">{{ attraction.description|slice(0, 100) }}{% if attraction.description|length > 100 %}...{% endif %}</p>
+                        <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-eye"></i> Voir les détails
                         </a>
                     </div>
                 </div>
             </div>
         {% else %}
             <div class="col-12">
-                <div class="alert alert-info">Aucune attraction trouvée.</div>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Aucune attraction trouvée.
+                </div>
             </div>
         {% endfor %}
     </div>
