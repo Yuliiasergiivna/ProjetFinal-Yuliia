@@ -1,20 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FavoriteController!{% endblock %}
+{% block title %}Mes Favoris{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/Symfonycours/ProjetFinal-Yuliia/src/Controller/FavoriteController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/Symfonycours/ProjetFinal-Yuliia/templates/favorite/index.html.twig</code></li>
-    </ul>
+<div class="container mt-5">
+    <h1 class="mb-4">
+        <i class="bi bi-heart-fill text-danger"></i> Mes Attractions Favorites
+    </h1>
+    
+    {% if favorites is empty %}
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Aucun favori pour le moment</h4>
+            <p>Vous n'avez pas encore ajouté d'attractions à vos favoris.</p>
+            <hr>
+            <p class="mb-0">Explorez nos attractions et ajoutez-les à vos favoris pour les retrouver facilement ici !</p>
+        </div>
+    {% else %}
+        <div class="row">
+            {% for favorite in favorites %}
+                {% set attraction = favorite.attraction %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if attraction.photos|length > 0 %}
+                            <img src="{{ attraction.photos.first.url }}" class="card-img-top" alt="{{ attraction.name }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="bi bi-image text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">{{ attraction.name }}</h5>
+                            <p class="card-text text-muted">{{ attraction.description|slice(0, 100) }}{% if attraction.description|length > 100 %}...{% endif %}</p>
+                            
+                            {% if attraction.category %}
+                                <span class="badge bg-primary mb-2">{{ attraction.category.name }}</span>
+                            {% endif %}
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar"></i> Ajouté le {{ favorite.date|date('d/m/Y') }}
+                                </small>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-danger" title="Retirer des favoris">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </button>
+                                    <a href="#" class="btn btn-sm btn-outline-primary" title="Voir les détails">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if attraction.latitude and attraction.longitude %}
+                            <div class="card-footer bg-transparent">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt"></i> 
+                                    {{ attraction.latitude }}, {{ attraction.longitude }}
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-4">
+            <p class="text-muted">
+                <strong>{{ favorites|length }}</strong> attraction(s) dans vos favoris
+            </p>
+        </div>
+    {% endif %}
 </div>
+
+<style>
+    .card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    }
+    
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
 {% endblock %}

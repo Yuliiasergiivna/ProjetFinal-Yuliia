@@ -70,6 +70,22 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'longitude' => '25.7951',
                 'city' => 'Klevan',
                 'photo' => ['Tunnel de lAmour.jpg'],
+            ],
+            [
+                'name' => 'Île de Khortytsia',
+                'description' => 'La plus grande île du Dniepr, berceau historique des cosaques zaporogues et réserve naturelle nationale.',
+                'latitude' => '47.8388',
+                'longitude' => '35.0869',
+                'city' => 'Zaporijjia',
+                'photo' => [],
+            ],
+            [
+                'name' => 'Parc Sofiyivka',
+                'description' => 'Magnifique parc paysager du XVIIIe siècle à Ouman, chef-d\'œuvre de l\'art des jardins européens.',
+                'latitude' => '48.7608',
+                'longitude' => '30.2231',
+                'city' => 'Ouman',
+                'photo' => [],
             ]
         ];
 
