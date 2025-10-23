@@ -21,12 +21,15 @@ final class PhotoController extends AbstractController
 
     public function index(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //
 
         $formPhoto = $this->createForm(PhotoType::class);
         $formPhoto->handleRequest($request);
 
-        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
+        if ($formPhoto->isSubmitted()){
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        }
+        if ($formPhoto->isValid()) {
             $photoEntity = $formPhoto->getData();
 
             /** @var UploadedFile $photoFile */
