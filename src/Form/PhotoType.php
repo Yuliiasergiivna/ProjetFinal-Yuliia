@@ -43,7 +43,7 @@ class PhotoType extends AbstractType
             ])
             ->add('attraction', EntityType::class, [
                 'class' => Attraction::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'name',
                 'label' => 'Attraction',
                 'required' => false,
             ])

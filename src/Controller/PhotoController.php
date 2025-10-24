@@ -29,7 +29,7 @@ final class PhotoController extends AbstractController
         if ($formPhoto->isSubmitted()){
             $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         }
-        if ($formPhoto->isValid()) {
+        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
             $photoEntity = $formPhoto->getData();
 
             /** @var UploadedFile $photoFile */

@@ -21,6 +21,7 @@ class PhotoFixtures extends Fixture implements DependentFixtureInterface
             $photo->setName($faker->word);
             $photo->setDateUpload(new DateTime());
             $photo->setUrl($faker->imageUrl(640, 480));
+
             $manager->persist($photo);
             $attraction = $this->getReference("attraction" . rand(1, 5), Attraction::class);
             $photo->setAttraction($attraction);
