@@ -9,10 +9,18 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
+use App\Entity\Photo;
+
 class UkraineAttractionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+
+
+
+
+
+
         
         $attractions = [
             [
@@ -21,7 +29,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '50.4501',
                 'longitude' => '30.5234',
                 'city' => 'Kiev',
-                'photo' => ['Maidan_Nezalezhnosti.webp'],
             ],
             [
                 'name' => 'Laure des Grottes de Kiev',
@@ -29,7 +36,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '50.4340',
                 'longitude' => '30.5571',
                 'city' => 'Kiev',
-                'photo' => ['LauredesGrottes.jpg'],
             ],
             [
                 'name' => 'Cathédrale Sainte-Sophie',
@@ -37,7 +43,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '50.4529',
                 'longitude' => '30.5149',
                 'city' => 'Kiev',
-                'photo' => ['Cathedrale Sainte-Sophie.jpg'],
             ],
             [
                 'name' => 'Rue Khreshchatyk',
@@ -45,7 +50,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '50.4500',
                 'longitude' => '30.5233',
                 'city' => 'Kiev',
-                'photo' => ['Khreshchatyk.jpg'],
             ],
             [
                 'name' => 'Opéra d\'Odessa',
@@ -53,7 +57,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '46.4850',
                 'longitude' => '30.7406',
                 'city' => 'Odessa',
-                'photo' => ['Opéra dOdessa.jpg'],
             ],
             [
                 'name' => 'Château de Kamianets-Podilskyï',
@@ -61,7 +64,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '48.6736',
                 'longitude' => '26.5853',
                 'city' => 'Kamianets-Podilskyï',
-                'photo' => ['Chateau de Kamianets-Podilskyi.jpg'],
             ],
             [
                 'name' => 'Tunnel d\'amour',
@@ -69,7 +71,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '51.2221',
                 'longitude' => '25.7951',
                 'city' => 'Klevan',
-                'photo' => ['Tunnel de lAmour.jpg'],
             ],
             [
                 'name' => 'Île de Khortytsia',
@@ -77,7 +78,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '47.8388',
                 'longitude' => '35.0869',
                 'city' => 'Zaporijjia',
-                'photo' => [],
             ],
             [
                 'name' => 'Parc Sofiyivka',
@@ -85,7 +85,6 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
                 'latitude' => '48.7608',
                 'longitude' => '30.2231',
                 'city' => 'Ouman',
-                'photo' => [],
             ]
         ];
 
@@ -95,6 +94,12 @@ class UkraineAttractionFixtures extends Fixture implements DependentFixtureInter
             $attraction->setDescription($attractions[$i]['description']);
             $attraction->setLatitude($attractions[$i]['latitude']);
             $attraction->setLongitude($attractions[$i]['longitude']);
+
+            // create and add photo
+            $photo = new Photo($attractions[$i]['name'], new \DateTime(), "photoInit" .$i .".jpg");
+            $attraction->addPhoto($photo);
+            
+
             $attraction->setRoute('attraction/' . strtolower(str_replace(' ', '-', $attractions[$i]['name'])));
             
             // creer la reference a l'attraction

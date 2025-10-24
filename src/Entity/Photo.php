@@ -33,6 +33,14 @@ class Photo
     #[ORM\ManyToOne(inversedBy: 'photos')]
     private ?Utilisateur $utilisateur = null;
 
+    public function __construct(string $name, \DateTime $dateUpload, string $url)
+    {
+        $this->name = $name;
+        $this->dateUpload = $dateUpload;
+        $this->url = $url;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

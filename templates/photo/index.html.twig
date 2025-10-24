@@ -40,7 +40,7 @@
         {% for photo in photos %}
             <div class="col-md-3 mb-3">
                 <div class="card">
-                    <img src="{{ photo.url }}" class="card-img-top" alt="{{ photo.name }}">
+                    <img src="/uploads/photos/{{ photo.url }}" class="card-img-top" alt="{{ photo.name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ photo.name }}</h5>
                         <p class="card-text">

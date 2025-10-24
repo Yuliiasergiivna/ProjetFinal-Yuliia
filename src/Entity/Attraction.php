@@ -32,13 +32,13 @@ class Attraction
     /**
      * @var Collection<int, Photo>
      */
-    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'attraction', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'attraction', orphanRemoval: true, cascade: ['persist'])]
     private Collection $photos;
 
     /**
      * @var Collection<int, Favorite>
      */
-    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'attraction', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'attraction', orphanRemoval: true,cascade: ['persist'])]
     private Collection $favorites;
 
     /**
