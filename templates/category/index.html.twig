@@ -4,43 +4,59 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Catégories</h1>
+        <h1 class="mb-4">Catégories</h1>
         
         <div class="row">
             <!-- List of Categories -->
             <div class="col-md-6">
-                <h3>Existante Catégories</h3>
+                <h3 class="mb-3">Existante Catégories</h3>
                 {% if categories|length > 0 %}
                     <ul class="list-group">
                         {% for category in categories %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ category.name }}
-                                <span class="badge bg-primary rounded-pill">
-                                    {% if category.photos is defined %}
-                                        {{ category.photos|length }} photos
-                                    {% else %}
-                                        0 photos
-                                    {% endif %}
-                                </span>
+                                <div>
+                                    <strong>{{ category.name }}</strong><br>
+                                    <small class="text-muted">{{ category.description }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-info text-dark mb-1">
+                                        {{category.attraction|length}} attractions
+                                    </span><br>
+                                    {# <span class="badge bg-primary">
+                                    {{ category.photos|length }} photos
+                                    </span><br> #}
+                                    <a href="{{ path('app_category_attractions',  {'id':  category.id}) }}" class="btn btn-sm     btn-outline-secondary mt-2">Voir les attractions
+                                    </a>
+                                </div>
                             </li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <div class="alert alert-info">No categories found.</div>
+                    <div class="alert alert-info">Aucune catégorie trouvée.</div>
                 {% endif %}
             </div>
             
             <!-- Add New Category Form -->
             <div class="col-md-6">
-                <h3>Ajouter une nouvelle catégorie</h3>
-                {{ form_start(formCategorie) }}
-                    <div class="mb-3">
-                        {{ form_label(formCategorie.name, 'Nom de la catégorie', {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(formCategorie.name, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(formCategorie.name) }}
+                <h3 class="mb-3">Ajouter une nouvelle catégorie</h3>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        {{ form_start(formCategorie) }}
+                            {{ form_errors(formCategorie) }}
+                            <div class="mb-3">
+                                {{ form_label(formCategorie.name, 'Nom de la catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(formCategorie.name, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(formCategorie.name) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(formCategorie.description, 'Description de la catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(formCategorie.description, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(formCategorie.description) }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Ajouter Catégorie</button>
+                        {{ form_end(formCategorie) }}
                     </div>
-                    <button type="submit" class="btn btn-primary">Ajouter Categorie</button>
-                {{ form_end(formCategorie) }}
+                </div>
             </div>
         </div>
     </div>

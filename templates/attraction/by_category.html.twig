@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }} - Attractions{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Attractions dans la catégorie "{{ category.name }}"</h1>
+
+    {% if attractions|length > 0 %}
+        <div class="row mt-4">
+            {% for attraction in attractions %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="ratio ratio-4x3">
+                            {% if attraction.photos|length > 0 %}
+                                <img src="{{ asset('uploads/photos/' ~ attraction.photos|first.name) }}"
+                                     class="card-img-top rounded-top" alt="{{ attraction.name }}">
+                            {% else %}
+                                <img src="https://source.unsplash.com/random/400x300/?{{ attraction.name }}" 
+                                     class="card-img-top rounded-top" alt="{{ attraction.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ attraction.name }}</h5>
+                            <p class="card-text text-muted">{{ attraction.description|u.truncate(100) }}</p>
+                            <a href="{{ path('app_attraction_show', {'id': attraction.id}) }}" class="btn btn-primary btn-sm">
+                                Voir plus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info mt-3">Aucune attraction dans cette catégorie.</div>
+    {% endif %}
+
+    <a href="{{ path('app_categories') }}" class="btn btn-outline-secondary mt-3">
+        <i class="fas fa-arrow-left me-1"></i> Retour aux catégories
+    </a>
+</div>
+{% endblock %}
