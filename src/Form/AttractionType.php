@@ -9,8 +9,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Route;
 use App\Entity\Photo;
+use App\Entity\Utilisateur;
 
 class AttractionType extends AbstractType
 {
@@ -30,6 +32,18 @@ class AttractionType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'id',
+            ])
+            ->add('utilisateur', EntityType::class, [
+                'class' => Utilisateur::class,
+                'choice_label' => 'email',
+                'label' => 'Utilisateur',
+                'required' => false,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3',
+                ],
             ])
         ;
     }

@@ -260,17 +260,18 @@ class Attraction
 
         return $this;
     }
-    // private ?string $city = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type = null;
 
-    // public function getCity(): ?string
-    // {
-    // return $this->city;
-    // }
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
 
-    // public function setCity(?string $city): static
-    // {
-    // $this->city = $city;
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
-    // return $this;
-    // }
+        return $this;
+    }
 }

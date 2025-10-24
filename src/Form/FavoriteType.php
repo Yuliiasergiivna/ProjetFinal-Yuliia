@@ -3,39 +3,35 @@
 namespace App\Form;
 
 use App\Entity\Attraction;
-use App\Entity\Comment;
-use App\Entity\Favorite;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class UtilisateurType extends AbstractType
+class FavoriteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('nom')
-            ->add('dateNaissance')
-            ->add('likes', EntityType::class, [
-                'class' => Comment::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            ->add('date', DateType::class, [
+                'label' => 'Date',
+                'widget' => 'single_text',
+                'required' => true,
             ])
-            ->add('attractionLikes', EntityType::class, [
+            ->add('attraction', EntityType::class, [
                 'class' => Attraction::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+                'choice_label' => 'name',
+                'label' => 'Attraction',
+                'required' => true,
             ])
-            ->add('favorites', EntityType::class, [
-                'class' => Favorite::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            ->add('utilisateur', EntityType::class, [
+                'class' => Utilisateur::class,
+                'choice_label' => 'email',
+                'label' => 'Utilisateur',
+                'required' => false,
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
@@ -49,7 +45,7 @@ class UtilisateurType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Utilisateur::class,
+            'data_class' => 'App\Entity\Favorite',
         ]);
     }
 }

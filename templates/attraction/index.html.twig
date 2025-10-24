@@ -11,7 +11,8 @@
             <div class="col">
                 <div class="card h-100 shadow-sm">
                     {% if attraction.photos|length > 0 %}
-                        <img src="{{ attraction.photos[0].url }}"
+                        {% set photo = attraction.photos|first %}
+                        <img src="{{asset('uploads/photos/' ~  photo.url) }}"
                             class="card-img-top"
                             alt="{{ attraction.name }}"
                             style="height: 200px; object-fit: cover;"

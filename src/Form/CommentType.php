@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CommentType extends AbstractType
 {
@@ -24,6 +25,12 @@ class CommentType extends AbstractType
                 'class' => Utilisateur::class,
                 'choice_label' => 'id',
                 'multiple' => true,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3',
+                ],
             ])
         ;
     }

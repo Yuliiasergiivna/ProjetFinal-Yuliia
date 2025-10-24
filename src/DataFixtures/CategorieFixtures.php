@@ -5,12 +5,18 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Category;
-use Faker\Factory;
+use App\Entity\Attraction;
 
-class CategorieFixtures extends Fixture
+
+
+
+class CategorieFixtures extends Fixture 
 {
     public function load(ObjectManager $manager): void
+
     {
+        $attractions = $manager->getRepository(Attraction::class)->findAll();
+
         $categories = [
             ['name' => 'Nature', 'description' => 'Photos de paysages naturels, forêts, montagnes, etc.'],
             ['name' => 'Catedrale', 'description' => 'Photos de catedrales et batiments religieux'],
@@ -23,10 +29,24 @@ class CategorieFixtures extends Fixture
             $category = new Category();
             $category->setName($catData['name']);
             $category->setDescription($catData['description']);
-            $this->addReference("category" . ($i + 1), $category);
+
+            $filtred = array_filter($attractions, fn($a)=> $a->getType() === $catData['type']);
+            foreach ($filtred as $attraction) {
+                $category->addAttraction($attraction);
+            }
+            $attractions = array_values($filtred);
+          
+
+            // if (!empty($attractions)) {
+            //     $category->addAttraction($attractions[array_rand($attractions)]);
+            // }
+           
             $manager->persist($category);
+            $this->addReference("category" . ($i + 1), $category );
         }
 
         $manager->flush();
     }
+    
+    
 }

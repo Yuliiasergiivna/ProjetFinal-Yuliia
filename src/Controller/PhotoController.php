@@ -39,17 +39,15 @@ final class PhotoController extends AbstractController
                 $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
+                $destination = $this->getParameter('photos_directory');
 
                 try {
-                    $photoFile->move(
-                        $this->getParameter('photo_directory'),
-                        $newFilename
-                    );
+                    $photoFile->move($destination,$newFilename);
 
                     // Mise à jour de l'entité avec le nom du fichier
                     $photoEntity->setUrl('/uploads/photos/' . $newFilename);
                     $photoEntity->setSlug($slugger->slug($photoEntity->getName()));
-
+                   
                     $em->persist($photoEntity);
                     $em->flush();
 
@@ -72,4 +70,5 @@ final class PhotoController extends AbstractController
             'photos' => $photos
         ]);
     }
+  
 }

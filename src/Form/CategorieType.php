@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
@@ -17,6 +18,13 @@ class CategorieType extends AbstractType
         $builder
             ->add('name',TextType::class)
             ->add('description',TextType::class)
+            
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3',
+                ],
+            ])
         ;
     }
 

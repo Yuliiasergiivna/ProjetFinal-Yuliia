@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class PhotoType extends AbstractType
 {
@@ -52,6 +53,12 @@ class PhotoType extends AbstractType
                 'choice_label' => 'email',
                 'label' => 'Utilisateur',
                 'required' => false,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3',
+                ],
             ])
         ;
     }
