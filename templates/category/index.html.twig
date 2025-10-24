@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categories{% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Categories</h1>
+        <h1>Catégories</h1>
         
         <div class="row">
             <!-- List of Categories -->
             <div class="col-md-6">
-                <h3>Existante Categories</h3>
+                <h3>Existante Catégories</h3>
                 {% if categories|length > 0 %}
                     <ul class="list-group">
                         {% for category in categories %}
@@ -32,10 +32,10 @@
             
             <!-- Add New Category Form -->
             <div class="col-md-6">
-                <h3>Ajouter une nouvelle categorie</h3>
+                <h3>Ajouter une nouvelle catégorie</h3>
                 {{ form_start(formCategorie) }}
                     <div class="mb-3">
-                        {{ form_label(formCategorie.name, 'Nom de la categorie', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_label(formCategorie.name, 'Nom de la catégorie', {'label_attr': {'class': 'form-label'}}) }}
                         {{ form_widget(formCategorie.name, {'attr': {'class': 'form-control'}}) }}
                         {{ form_errors(formCategorie.name) }}
                     </div>

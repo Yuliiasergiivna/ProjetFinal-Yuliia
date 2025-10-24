@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Attraction;
+use App\Entity\Category;
 use App\Repository\AttractionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,16 @@ final class AttractionController extends AbstractController
     {
         return $this->render('attraction/show.html.twig', [
             'attraction' => $attraction,
+        ]);
+    }
+    #[Route('/categories/{id}/attractions', name: 'app_category_attractions')]
+    public function showByCategory(Category $category): Response
+    {
+        $attractions = $category->getAttraction();
+
+        return $this->render('attraction/by_category.html.twig', [
+            'category' => $category,
+            'attractions' => $attractions,
         ]);
     }
 }
