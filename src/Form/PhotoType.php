@@ -20,11 +20,12 @@ class PhotoType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => 'Nom de la photo',
+                'required' => false,
             ])
             ->add('image', FileType::class, [
                 'label' => 'Fichier image',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '5M',
@@ -38,28 +39,28 @@ class PhotoType extends AbstractType
                     ])
                 ],
             ])
-            ->add('dateUpload', null, [
-                'label' => 'Date de téléchargement',
-                'widget' => 'single_text',
-            ])
+            // ->add('dateUpload', null, [
+            //     'label' => 'Date de téléchargement',
+            //     'widget' => 'single_text',
+            // ])
             ->add('attraction', EntityType::class, [
                 'class' => Attraction::class,
                 'choice_label' => 'name',
                 'label' => 'Attraction',
                 'required' => false,
             ])
-            ->add('utilisateur', EntityType::class, [
-                'class' => Utilisateur::class,
-                'choice_label' => 'email',
-                'label' => 'Utilisateur',
-                'required' => false,
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer',
-                'attr' => [
-                    'class' => 'btn btn-primary mt-3',
-                ],
-            ])
+            // ->add('utilisateur', EntityType::class, [
+            //     'class' => Utilisateur::class,
+            //     'choice_label' => 'email',
+            //     'label' => 'Utilisateur',
+            //     'required' => false,
+            // ])
+            // ->add('save', SubmitType::class, [
+            //     'label' => 'Enregistrer',
+            //     'attr' => [
+            //         'class' => 'btn btn-primary mt-3',
+            //     ],
+            // ])
         ;
     }
 

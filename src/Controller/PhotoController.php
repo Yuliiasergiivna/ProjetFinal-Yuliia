@@ -14,6 +14,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
+
 final class PhotoController extends AbstractController
 {
 
@@ -26,39 +27,45 @@ final class PhotoController extends AbstractController
         $formPhoto = $this->createForm(PhotoType::class);
         $formPhoto->handleRequest($request);
 
-        if ($formPhoto->isSubmitted()){
+        if ($formPhoto->isSubmitted() ){
             $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        }
-        if ($formPhoto->isSubmitted() && $formPhoto->isValid()) {
-            $photoEntity = $formPhoto->getData();
 
-            /** @var UploadedFile $photoFile */
-            $photoFile = $formPhoto->get('image')->getData();
+            if ( $formPhoto->isValid()){
+        
+                $photoEntity = new Photo();
+                $photoEntity->setName($formPhoto->get('name')->getData());
+                $photoEntity->setAttraction($formPhoto->get('attraction')->getData());
+                $photoEntity->setUtilisateur($this->getUser());
+                $photoEntity->setDateUpload(new \DateTimeImmutable());
 
-            if ($photoFile) {
-                $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
-                $destination = $this->getParameter('photos_directory');
+                /** @var UploadedFile $photoFile */
+                $photoFile = $formPhoto->get('image')->getData();
 
-                try {
-                    $photoFile->move($destination,$newFilename);
+                if ($photoFile) {
+                    $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
+                    $destination = $this->getParameter('photos_directory');
 
-                    // Mise à jour de l'entité avec le nom du fichier
-                    $photoEntity->setUrl('/uploads/photos/' . $newFilename);
-                    $photoEntity->setSlug($slugger->slug($photoEntity->getName()));
-                   
-                    $em->persist($photoEntity);
-                    $em->flush();
+                    try {
+                        $photoFile->move($destination,$newFilename);
 
-                    $this->addFlash('success', 'Photo téléchargée avec succès !');
-                    return $this->redirectToRoute('app_photo');
+                        // Mise à jour de l'entité avec le nom du fichier
+                        $photoEntity->setUrl( $newFilename);
+                        $photoEntity->setSlug($slugger->slug($photoEntity->getName()));
+                    
+                        $em->persist($photoEntity);
+                        $em->flush();
 
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de la photo.');
+                        $this->addFlash('success', 'Photo téléchargée avec succès !');
+                        return $this->redirectToRoute('app_photo');
+
+                    } catch (FileException $e) {
+                        $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de la photo.');
+                    }
+                } else {
+                    $this->addFlash('warning', 'Veuillez sélectionner une photo valide.');
                 }
-            } else {
-                $this->addFlash('warning', 'Veuillez sélectionner une photo valide.');
             }
         }
 

@@ -13,38 +13,40 @@
                         <img id="profilePreview"
                         src="{{ app.user.photo ? asset('uploads/photos/' ~ app.user.photo) : asset('images/user_icon.png') }}" alt="Profil" 
                         class="rounded-circle border border-4 border-white shadow-sm mb-3"
-                        style="width: 130px; height: 130px; object-fit: cover;" >
-                        <div class="d-flex justify-content-center gap-3">
-                        {# new photo #}
-                        <form method="post" 
-                            action="{{ path('app_profile_photo') }}" enctype="multipart/form-data" 
-                            class="mt-3 d-grid gap-2">
+                        style="width: 180px; height: 180px; object-fit: cover;" >
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            {# new photo #}
+                            <form method="post" 
+                                action="{{ path('app_profile_photo') }}" enctype="multipart/form-data" 
+                                class="d-inline-flex align-items-center">
 
-                                <label for="photoUpload" 
-                                    class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center gap-2shadow-sm" 
-                                    >
-                                    <i class="bi bi-camera-fill"></i>
-                                    <span>Changer la photo</span>
-                                </label>
-                            </div>
-                            <input type="file" id="photoUpload" name="photo" class="d-none" accept="image/*" onchange="previewProfilePhoto(event)">
-                            <button type="submit" class="d-none" id="submitPhoto"></button>
-                        </form>
-                        {# delete photo #}
-                        <form method="post"
-                            action="{{ path('app_profile_photo_delete') }}"
-                            onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre photo de profil ?');"
-                            class="d-inline-flex align-items-center">
-                            <button type="submit"
-                                class="btn btn-outline-danger d-inline-flex align-items-center justify-content-center gap-2 shadow-sm">
-                                <i class="bi bi-trash-fill fs-5"></i>
-                                <span>Supprimer la photo</span>
-                            </button>
-                        </form>
+                                    <label for="photoUpload" 
+                                        class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center gap-2 shadow-sm" 
+                                        >
+                                        <i class="bi bi-camera-fill"></i>
+                                        <span>Changer la photo</span>
+                                    </label>
+                                
+                                <input type="file" id="photoUpload" name="photo" class="d-none" accept="image/*" onchange="previewProfilePhoto(event)">
+                                <button type="submit" class="d-none" id="submitPhoto"></button>
+                            </form>
+                            {# delete photo #}
+                            <form method="post"
+                                action="{{ path('app_profile_photo_delete') }}"
+                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre photo de profil ?');"
+                                class="d-inline-flex align-items-center">
+                                <button type="submit"
+                                    class="btn btn-outline-danger d-inline-flex align-items-center justify-content-center gap-2 shadow-sm">
+                                    <i class="bi bi-trash-fill fs-5"></i>
+                                    <span>Supprimer la photo</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                    <h2 class="fw-bold mb-0">Mon Profil</h2>
-                    <p class="text-light opacity-75 mb-0">{{ app.user.email }}</p>
+                <div>
+                    <h2 class="fw-bold mb-0 text-center">Mon Profil</h2>
+                    {# <p class="text-light opacity-75 mb-0">{{ app.user.email }}</p> #}
                 </div>
                 
                 <div class="card-body p-4 p-md-5 bg-light">
@@ -58,15 +60,15 @@
                         <dd class="col-md-8">
                             <span class="badge bg-success">Connecté</span>
                         </dd>
-                        <dt class= "col-md-4">Rôles:</dt>
+                        {# <dt class= "col-md-4">Rôles:</dt>
                         <dd class="col-md-8">
                             {% for role in app.user.roles %}
                                 <span class="badge bg-info me-1">{{ role| replace({"ROLE_": ""}) }}</span>
                             {% endfor %}
-                        </dd>
-                        <dt class= "col-md-4">Membre depuis:</dt>
+                        </dd> #}
+                        {# <dt class= "col-md-4">Membre depuis:</dt>
                         <dd class="col-md-8 text-muted">{{ app.user.createdAt is defined ? app.user.createdAt|date('d/m/Y') : 'N/A' }}</dd>
-                    </dl>
+                    </dl> #}
                     <h4 class="border-bottom pb-2 mb-4 text-primary">
                         <i class="bi bi-gear me-2"></i>Actions
                     </h4>
@@ -93,9 +95,6 @@
 </div>
 
 <style>
-    .profile-header {
-        background: linear-gradient(135deg, #1575f3ff, #f6e609ff);
-    }
 
 /* 👤 Avatar */
     .profile-avatar img {
@@ -105,6 +104,8 @@
     }
     .card {
         border-radius: 15rem;
+        background: linear-gradient(135deg, #1575f3ff, #f6e609ff);
+
         /* overflow: hidden; */
     }
     @media (max-width: 768px) {
@@ -112,15 +113,12 @@
         width: 90px;
         height: 90px;
     }
+
     .btn-lg {
         font-size: 1rem;
         padding: 10px;
     }
     }
-    
-    /* .card-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    } */
     
     .btn {
         border-radius: 10px;
@@ -133,39 +131,58 @@
         transform: translateY(-3px);
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
-    .btn-outline-primary {
-        transition: all 0.3s ease;
-        border-radius: 10px;
-        font-weight: 500;
+        label.btn {
         padding: 10px 20px;
+    }
+    .btn-outline-primary,
+    .btn-outline-danger {
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: 500;
         font-size: 1rem;
+        transition: 0.25s ease;
         width: auto;
         max-width: 250px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+}
+    .btn-outline-primary {
+        color: #0d6efd;
+        border-color: #0d6efd;
+        background-color: #0d6efd;
+        color: #fff;
     }
 
     .btn-outline-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        background-color: #fff  !important;
+        color: #0d6efd; 
+        border-color: #fff;
+
     }
     .btn-outline-danger {
-        transition: all 0.3s ease;
-        border-radius: 10px;
-        font-weight: 500;
-        padding: 10px 20px;
-        font-size: 1rem;
-        width: auto;
-        max-width: 250px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        background-color: #dc3545;
+        color: #fff;
+        border-color: #dc3545;
+  
     }
     .btn-outline-danger:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        background-color: #fff;
+        color: #dc3545;
+        border-color: #dc3545;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
+    .d-grid .btn-lg {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+
+
 </style>
 <script>
 function previewProfilePhoto(event) {

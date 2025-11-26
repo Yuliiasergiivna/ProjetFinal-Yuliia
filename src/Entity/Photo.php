@@ -18,7 +18,7 @@ class Photo
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $dateUpload = null;
+    private ?\DateTimeInterface $dateUpload = null;
 
     #[ORM\Column(length: 255)]
     private ?string $url = null;
@@ -33,11 +33,11 @@ class Photo
     #[ORM\ManyToOne(inversedBy: 'photos')]
     private ?Utilisateur $utilisateur = null;
 
-    public function __construct(string $name, \DateTime $dateUpload, string $url)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->dateUpload = $dateUpload;
-        $this->url = $url;
+        // $this->name = $name;
+        $this->dateUpload = new \DateTime();
+        // $this->url = $url;
     }
 
 
@@ -58,12 +58,12 @@ class Photo
         return $this;
     }
 
-    public function getDateUpload(): ?\DateTime
+    public function getDateUpload(): ?\DateTimeInterface
     {
         return $this->dateUpload;
     }
 
-    public function setDateUpload(\DateTime $dateUpload): static
+    public function setDateUpload(\DateTimeInterface $dateUpload): static
     {
         $this->dateUpload = $dateUpload;
 

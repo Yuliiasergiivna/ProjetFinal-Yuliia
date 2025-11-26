@@ -10,17 +10,20 @@
         {% for attraction in attractions %}
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    {% if attraction.photos|length > 0 %}
+                    {% if attraction.photos|length > 0 and attraction.photos|first and attraction.photos|first.url %}
                         {% set photo = attraction.photos|first %}
+                        {% if photo and photo.url %}
+
                         <img src="{{asset('uploads/photos/' ~  photo.url) }}"
                             class="card-img-top"
                             alt="{{ attraction.name }}"
                             style="height: 200px; object-fit: cover;"
                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'card-img-top bg-secondary d-flex align-items-center justify-content-center\' style=\'height: 200px;\'><i class=\'bi bi-image text-white\' style=\'font-size: 3rem;\'></i></div>';">
-                    {% else %}
+                        {% else %}
                         <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                             <i class="bi bi-image text-white" style="font-size: 3rem;"></i>
                         </div>
+                        {% endif %}
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ attraction.name }}</h5>
