@@ -274,4 +274,13 @@ class Attraction
 
         return $this;
     }
+    public function getPhoto(): ?string
+    {
+        if ($this->photos->isEmpty()) {
+            return null;
+        }
+        $photo = $this->photos->first();
+
+        return $photo->getUrl();
+    }
 }

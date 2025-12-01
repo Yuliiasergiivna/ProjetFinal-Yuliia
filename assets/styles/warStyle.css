@@ -1,0 +1,77 @@
+/* Стили для красной ссылки */
+.war-link {
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 30px; /* Отступ от заголовка */
+}
+
+/* Стили для перекрывающего красного блока */
+.war-overlay {
+    position: fixed; /* Фиксированное положение относительно окна просмотра */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Занять всю ширину окна просмотра */
+    height: 100vh; /* Занять всю высоту окна просмотра */
+    background-color: red; /* Красный фон */
+    display: none; /* Скрыт по умолчанию */
+    justify-content: center; /* Центрировать контент по горизонтали */
+    align-items: center; /* Центрировать контент по вертикали */
+    z-index: 9999; /* Поверх всех остальных элементов */
+    flex-direction: column; /* Размещать сообщение  */
+    gap: 20px; /* Отступ между */
+}
+
+.war-message {
+    color: white;
+    font-size: 2.5em; /* Большой размер шрифта */
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    max-width: 80%; /* Ограничение ширины текста */
+}
+.button-group {
+    display: flex;
+    gap: 20px; /* Отступ между кнопками */
+    margin-top: 30px;
+}
+.war-button {
+    font-size: 1.2em;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+#warVideoContainer {
+    position: fixed; /* Фиксированное положение */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Вся ширина */
+    height: 100vh; /* Вся высота */
+    background-color: black; /* Черный фон для лучшего вида */
+    display: none; /* Скрыт по умолчанию, как и раньше */
+    justify-content: center; /* Центрировать по горизонтали */
+    align-items: center; /* Центрировать по вертикали */
+    z-index: 9998; /* Чуть ниже оверлея, но выше остального контента */
+}
+
+/* Стили для самого iframe, чтобы он занимал разумное пространство */
+#warVideoContainer iframe {
+    width: 90vw; /* Занять 90% ширины окна просмотра */
+    max-width: 1280px; /* Максимальная ширина для больших экранов */
+    height: 90vh; /* Занять 90% высоты окна просмотра */
+    max-height: 720px; /* Максимальная высота */
+}
+
+/* Анимация мигания экрана */
+@keyframes screen-flash {
+    0% { background-color: white; } /* Начинаем с белого */
+    25% { background-color: red; } /* Быстро переходим к красному */
+    50% { background-color: white; } /* Снова к белому */
+    75% { background-color: red; } /* И снова к красному */
+    100% { background-color: red; } /* Завершаем красным */
+}
+
+.flash-red {
+    animation: screen-flash 0.5s ease-out forwards; /* Анимация на 0.5 секунды, сохраняет конечное состояние */
+}

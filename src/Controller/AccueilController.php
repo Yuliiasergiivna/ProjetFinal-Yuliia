@@ -36,7 +36,7 @@ final class AccueilController extends AbstractController
         $repo=$entityManager->getRepository(Attraction::class);
         $arrayAttractions=$repo->findAll();
 
-        $arrayAttractions[0]->getCategories();
+        $arrayAttractions[0]->getCategory();
 
         // $arrayAttractions=$entityManager->getRepository(Attraction::class)->findAll();
 

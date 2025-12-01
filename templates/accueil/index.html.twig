@@ -6,13 +6,18 @@
     {{ parent() }}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="{{ asset('styles/map.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/warStyle.css') }}"> 
 {% endblock %}
 
 {% block body %}
 <div class="container mt-4">
     <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4">Attractions d'Ukraine</h1>
+        <div class="col-12 pt-2">
+            <h1 class="mb-2">Attractions d'Ukraine
+                  <a href="#" id="warTriggerLink" class="war-link">Attention, c'est la guerre ici!</a>
+            </h1>
+            <p>Voici les attractions qui existaient au moment où la guerre a éclaté en 2014.
+             Il n'est actuellement pas possible de vérifier leur existence.
             <div class="card">
                 <div class="card-body">
                     <div id="map" data-api-endpoint="{{ path('api_attractions') }}"></div>
@@ -31,7 +36,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="attractionModalBody">
-                <!-- Contenido dinámico -->
+                <!--  -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -39,10 +44,34 @@
         </div>
     </div>
 </div>
+<div id="warOverlay" class="war-overlay">
+    <div class="war-message">
+       <h1> Attention, c'est une véritable guerre.</h1> 
+       <h5> Les personnes à la santé mentale fragile devraient s'éloigner des écrans.</h5> 
+        <h2>Bienvenue dans notre réalité !</h2>
+    </div>
+    <div class="button-group">
+        <button id="startVideoBtn" class="btn btn-dark btn-lg war-button">Continuez à regarder</button>
+        <button id="returnToMainBtn" class="btn btn-secondary btn-lg war-button">Retour à l'accueil</button>
+    </div>
+</div>
+<div id="warVideoContainer" styles="display:none">
+       <iframe 
+        id="warVideo" 
+        {# ID видео: 0lVu-CIYCV8 #}
+        allow="autoplay; encrypted-media; picture-in-picture" 
+        src="https://www.youtube.com/embed/0lVu-CIYCV8?controls=1&mute=0&playsinline=1&enablejsapi=1&start=0.5" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media; picture-in-picture" 
+        allowfullscreen
+    ></iframe>
+</div>
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="{{ asset('map.js') }}"></script>
+    <script src="{{ asset('war.js') }}"></script>
 {% endblock %}

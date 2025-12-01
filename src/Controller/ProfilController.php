@@ -44,7 +44,7 @@ final class ProfilController extends AbstractController
 
             try {
                 $photoFile->move(
-                    $this->getParameter('photo_directory'),
+                    $this->getParameter('photos_directory'),
                     $newFilename
                 );
             } catch (FileException $e) {
@@ -54,7 +54,7 @@ final class ProfilController extends AbstractController
 
             // Удаляем старое фото, если есть
             if ($user->getPhoto()) {
-                $oldPath = $this->getParameter('photo_directory') . '/' . $user->getPhoto();
+                $oldPath = $this->getParameter('photos_directory') . '/' . $user->getPhoto();
                 if (file_exists($oldPath)) {
                     @unlink($oldPath);
                 }
@@ -78,7 +78,7 @@ final class ProfilController extends AbstractController
         $user = $this->getUser();
 
         if ($user->getPhoto()) {
-            $photoPath = $this->getParameter('photo_directory') . '/' . $user->getPhoto();
+            $photoPath = $this->getParameter('photos_directory') . '/' . $user->getPhoto();
             if (file_exists($photoPath)) {
                 unlink($photoPath);
             }

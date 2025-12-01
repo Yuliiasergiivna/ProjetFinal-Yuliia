@@ -25,11 +25,11 @@ class Category
      * @var Collection<int, Attraction>
      */
     #[ORM\OneToMany(targetEntity: Attraction::class, mappedBy: 'category', orphanRemoval: true)]
-    private Collection $attraction;
+    private Collection $attractions;
 
     public function __construct()
     {
-        $this->attraction = new ArrayCollection();
+        $this->attractions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,15 +64,15 @@ class Category
     /**
      * @return Collection<int, Attraction>
      */
-    public function getAttraction(): Collection
+    public function getAttractions(): Collection
     {
-        return $this->attraction;
+        return $this->attractions;
     }
 
     public function addAttraction(Attraction $attraction): static
     {
-        if (!$this->attraction->contains($attraction)) {
-            $this->attraction->add($attraction);
+        if (!$this->attractions->contains($attraction)) {
+            $this->attractions->add($attraction);
             $attraction->setCategory($this);
         }
 
@@ -81,7 +81,7 @@ class Category
 
     public function removeAttraction(Attraction $attraction): static
     {
-        if ($this->attraction->removeElement($attraction)) {
+        if ($this->attractions->removeElement($attraction)) {
             // set the owning side to null (unless already changed)
             if ($attraction->getCategory() === $this) {
                 $attraction->setCategory(null);

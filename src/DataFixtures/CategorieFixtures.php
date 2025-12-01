@@ -15,7 +15,7 @@ class CategorieFixtures extends Fixture
     public function load(ObjectManager $manager): void
 
     {
-        $attractions = $manager->getRepository(Attraction::class)->findAll();
+        // $attractions = $manager->getRepository(Attraction::class)->findAll();
 
         $categories = [
             ['name' => 'Nature', 'description' => 'Photos de paysages naturels, forêts, montagnes, etc.'],
@@ -30,11 +30,11 @@ class CategorieFixtures extends Fixture
             $category->setName($catData['name']);
             $category->setDescription($catData['description']);
 
-            $filtred = array_filter($attractions, fn($a)=> $a->getType() === $catData['type']);
-            foreach ($filtred as $attraction) {
-                $category->addAttraction($attraction);
-            }
-            $attractions = array_values($filtred);
+            // $filtred = array_filter($attractions, fn($a)=> $a->getType() === $catData['type']);
+            // foreach ($filtred as $attraction) {
+            //     $category->addAttraction($attraction);
+            // }
+            // $attractions = array_values($filtred);
           
 
             // if (!empty($attractions)) {

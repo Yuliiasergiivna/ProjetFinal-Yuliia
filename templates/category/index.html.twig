@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="text-end">
                                     <span class="badge bg-info text-dark mb-1">
-                                        {{category.attraction|length}} attractions
+                                        {{category.attractions|length}} attractions
                                     </span><br>
                                     {# <span class="badge bg-primary">
                                     {{ category.photos|length }} photos
@@ -41,7 +41,7 @@
                 <h3 class="mb-3">Ajouter une nouvelle catégorie</h3>
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        {{ form_start(formCategorie) }}
+                        {{ form_start(formCategorie,  { 'action': path('app_category_insert_categorie') }) }}
                             {{ form_errors(formCategorie) }}
                             <div class="mb-3">
                                 {{ form_label(formCategorie.name, 'Nom de la catégorie', {'label_attr': {'class': 'form-label'}}) }}

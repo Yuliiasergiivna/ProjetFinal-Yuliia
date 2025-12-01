@@ -32,14 +32,14 @@ final class CategoryController extends AbstractController
     
     #[Route('/category/insert_categorie', name: 'app_category_insert_categorie')]
     public function insertCategorie(Request $request , EntityManagerInterface $entityManager): Response
-    { $categorie = new Category();
+    {   $categorie = new Category();
         $formCategorie = $this->createForm(CategorieType::class, $categorie);
         $formCategorie->handleRequest($request);
         if ($formCategorie->isSubmitted() && $formCategorie->isValid()) {
             // $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($categorie);
             $entityManager->flush();
-            return $this->redirectToRoute('app_category_resultat');
+            return $this->redirectToRoute('app_category');
         }else{
             $vars = ['formCategorie' => $formCategorie];
             return $this->render('category/afficher_category.html.twig',$vars);  

@@ -46,6 +46,7 @@ security:
          - { path: ^/categories, roles: PUBLIC_ACCESS }
          - { path: ^/category, roles: PUBLIC_ACCESS }
          - { path: ^/attraction, roles: PUBLIC_ACCESS}
+         - { path: ^/api/attractions, roles: PUBLIC_ACCESS }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
          - { path: ^/, roles: ROLE_USER }
